@@ -6,7 +6,7 @@ import MysInfo from '../model/mys/mysInfo.js'
 export class getDevice extends plugin {
   constructor () {
     super({
-      name: '绑定设备',
+      name: 'genshin·绑定设备',
       dsc: '绑定设备',
       event: 'message',
       priority: 300,
