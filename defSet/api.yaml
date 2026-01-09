@@ -14,7 +14,7 @@ signquery:
 resquery: 
 
 # 使用他人的手动api或者不想使用手动请关闭
-startApi: false
+startApi: true
 # 你的手动ip
 Host: 127.0.0.1
 # 你的手动端口
