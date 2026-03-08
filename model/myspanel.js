@@ -80,7 +80,7 @@ export default class Myspanel {
             if (va.id == '10000007') va.name = '荧'
             //皮肤
             let costume = 0
-            if (mb.avatars[va.id]?.costume) costume = mb.avatars[va.id].costume
+            if (v.costumes[0]?.id) costume = v.costumes[0]?.id
 
             avatars[va.id] = {
                 'name': va.name,
@@ -318,7 +318,7 @@ export default class Myspanel {
             else if (v.equip.level > 20) gzpro = 1
             else if (v.equip.level > 0) gzpro = 0
             }
-            //处理三月七，开拓者，饮月，托帕，阮梅
+            //处理三月七，开拓者，丹恒，托帕，阮梅
             if (v.id == 1001) v.name = '三月七'
             if (v.id == 1224) v.name = '三月七·巡猎'
             if (v.id == 8001) v.name = '穹·毁灭'
@@ -345,54 +345,62 @@ export default class Myspanel {
             let e = v.skills[1].level
             let q = v.skills[2].level
             let t = v.skills[3].level
-            let xe = v.skills[18] ? v.skills[18].level : null
             let servant = v.servant_detail.servant_skills
-            let me, mt
+            let me = null; let mt = null
             if (servant.length !== 0) {
                 me = servant[0].level
                 mt = servant[1].level
             }
+            let xe = v.skills[18] ? v.skills[18].level : null
             for (let x in ava.talentCons) {
-                if ((v.rank > 4 && ava.talentCons[x] == 5) || (v.rank > 2 && ava.talentCons[x] == 3)) {
-                    if (servant.length !== 0) {
-                        switch (x) {
-                            case 'a':
-                                a = a - 1
-                                break
-                            case 'e':
-                                e = e - 2
-                                break
-                            case 'q':
-                                q = q - 2
-                                break
-                            case 't':
-                                t = t - 2
-                                break
-                            case 'me':
-                                me = me - 1
-                                break
-                            case 'mt':
-                                mt = mt - 1
-                                break
-                        }
-                    } else {
-                        switch (x) {
-                            case 'a':
-                                a = a - 1
-                                break
-                            case 'e':
-                                e = e - 2
-                                break
-                            case 'q':
-                                q = q - 2
-                                break
-                            case 't':
-                                t = t - 2
-                                break
-                            case 'xe':
-                                xe = xe - 1
-                                break
-                        }
+                if (v.rank > 4 && (ava.talentCons[x] == 5 || x == 'xe')) {
+                    switch (x) {
+                        case 'a':
+                            a = a - 1
+                            break
+                        case 'e':
+                            e = e - 2
+                            break
+                        case 'q':
+                            q = q - 2
+                            break
+                        case 't':
+                            t = t - 2
+                            break
+                        case 'me':
+                            me = me - 1
+                            break
+                        case 'mt':
+                            mt = mt - 1
+                            break
+                        case 'xe':
+                            xe = xe - 1
+                            break
+                    }
+                }
+                if (v.rank > 2 && (ava.talentCons[x] == 3 || x == 'xe')) {
+                    switch (x) {
+                        case 'a':
+                            a = a - 1
+                            break
+                        case 'e':
+                            e = e - 2
+                            break
+                        case 'q':
+                            q = q - 2
+                            break
+                        case 't':
+                            t = t - 2
+                            break
+                        case 'me':
+                            me = me - 1
+                            break
+                        case 'mt':
+                            mt = mt - 1
+                            break
+                        case 'xe':
+                            xe = xe - 1
+                            break
                     }
                 }
             }
@@ -545,18 +553,13 @@ export default class Myspanel {
                 'level': v.level,
                 'promote': pro,
                 'cons': v.rank,
-                'talent': servant.length !== 0 ? {
+                'talent': {
                     'a': a,
                     'e': e,
                     'q': q,
                     't': t,
                     'me': me,
-                    'mt': mt
-                } : {
-                    'a': a,
-                    'e': e,
-                    'q': q,
-                    't': t,
+                    'mt': mt,
                     'xe': xe
                 },
                 'trees': trees,
