@@ -29,7 +29,7 @@ export default class Note extends base {
     let { cks } = await Cfg.getcks(false, e.user_id, true)
     if (_.every(cks, _.isEmpty)) return e.reply('请【#扫码登录】绑定ck\n或尝试【#刷新ck】', false, { at: true })
 
-    e.reply('查询中请稍等...', false, { at: true, recallMsg: 30 })
+    e.reply('查询中请稍等...(绝区零体力需要#绑定设备)', false, { at: true, recallMsg: 30 })
 
     let sendMsg = []
     e._reply = e.reply
