@@ -53,10 +53,12 @@
                 </div>
                 <div class="detail-star">
                   {{ if floor.is_tierce }}
-                    <% for (var i = 0; i < 3; i++){ %>
+                    <% for (var i = 0; i < (floor.star_num - floor.extra_star_num); i++){ %>
                       <img class="rogue-star" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
                     <% } %>
-                    <img class="rogue-star" src="{{ pluResPath }}html/challenge/images/abyss_star.f89de036.png" />
+                    {{ if floor.extra_star_num == 1 }}
+                      <img class="rogue-star" src="{{ pluResPath }}html/challenge/images/abyss_star.f89de036.png" />
+                    {{ /if }}
                   {{ else }}
                     <% for (var i = 0; i < floor.star_num; i++){ %>
                       <img class="rogue-star" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
@@ -84,6 +86,7 @@
                   {{ /each }}
                 </div>
               </div>
+              {{ if floor.node_2 }}
               <div class="detail-node">
                 <div class="detail-bar">
                   <div class="detail-node-title">
@@ -103,6 +106,7 @@
                   {{ /each }}
                 </div>
               </div>
+              {{ /if }}
               {{ if floor.node_3 }}
               <div class="detail-node detail-node3">
                 <div class="detail-bar detail-bar-node3">
@@ -209,10 +213,12 @@
                 <div class="detail-result">
                   <div class="detail-star-small">
                     {{ if floor.is_tierce }}
-                      <% for (var i = 0; i < 3; i++){ %>
+                      <% for (var i = 0; i < (floor.star_num - floor.extra_star_num); i++){ %>
                         <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
                       <% } %>
-                      <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/abyss_star.f89de036.png" />
+                      {{ if floor.extra_star_num == 1 }}
+                        <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/abyss_star.f89de036.png" />
+                      {{ /if }}
                     {{ else }}
                       <% for (var i = 0; i < floor.star_num; i++){ %>
                         <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
@@ -228,16 +234,16 @@
               <div class="detail-node">
                 <div class="detail-bar">
                   <div class="detail-node-title">
-                      节点1
-                      {{ if floor.node_1.boss_defeated }}
-                        <span class="detail-boss-defeated-text">已击败首领</span>
-                      {{ else }}
-                        <span class="detail-boss-not-defeated-text">未击败首领</span>
-                      {{ /if }}
+                    节点1
+                    {{ if floor.node_1.boss_defeated }}
+                      <span class="detail-boss-defeated-text">已击败首领</span>
+                    {{ else }}
+                      <span class="detail-boss-not-defeated-text">未击败首领</span>
+                    {{ /if }}
                     <p>{{ floor.node_1.challengeTime }}</p>
                   </div>
                   <div class="detail-node-score">
-                      <p>积分： <span>{{ floor.node_1.score }}</span></p>
+                    <p>积分： <span>{{ floor.node_1.score }}</span></p>
                   </div>
                 </div>
                 <div class="detail-avatars">
@@ -267,19 +273,20 @@
                 </div>
                 {{ /if }}
               </div>
+              {{ if floor.node_2 }}
               <div class="detail-node">
                 <div class="detail-bar">
                   <div class="detail-node-title">
-                      节点2
-                      {{ if floor.node_2.boss_defeated }}
-                        <span class="detail-boss-defeated-text">已击败首领</span>
-                      {{ else }}
-                        <span class="detail-boss-not-defeated-text">未击败首领</span>
-                      {{ /if }}
+                    节点2
+                    {{ if floor.node_2.boss_defeated }}
+                      <span class="detail-boss-defeated-text">已击败首领</span>
+                    {{ else }}
+                      <span class="detail-boss-not-defeated-text">未击败首领</span>
+                    {{ /if }}
                     <p>{{ floor.node_2.challengeTime }}</p>
                   </div>
                   <div class="detail-node-score">
-                      <p>积分： <span>{{ floor.node_2.score }}</span></p>
+                    <p>积分： <span>{{ floor.node_2.score }}</span></p>
                   </div>
                 </div>
                 <div class="detail-avatars">
@@ -309,6 +316,7 @@
                 </div>
                 {{ /if }}
               </div>
+              {{ /if }}
               {{ if floor.node_3 }}
               <div class="detail-node detail-node3">
                 <div class="detail-bar detail-bar-node3">
@@ -323,7 +331,7 @@
                     <p>{{ floor.node_3.challengeTime }}</p>
                   </div>
                   <div class="detail-node-score">
-                      <p>积分： <span>{{ floor.node_3.score }}</span></p>
+                    <p>积分： <span>{{ floor.node_3.score }}</span></p>
                   </div>
                 </div>
                 <div class="detail-avatars">
@@ -406,10 +414,12 @@
                 <div class="detail-result">
                   <div class="detail-star-small">
                     {{ if floor.is_tierce }}
-                      <% for (var i = 0; i < 3; i++){ %>
+                      <% for (var i = 0; i < (floor.star_num - floor.extra_star_num); i++){ %>
                         <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
                       <% } %>
-                      <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/abyss_star.f89de036.png" />
+                      {{ if floor.extra_star_num == 1 }}
+                        <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/abyss_star.f89de036.png" />
+                      {{ /if }}
                     {{ else }}
                       <% for (var i = 0; i < floor.star_num; i++){ %>
                         <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
@@ -458,6 +468,7 @@
                 </div>
                 {{ /if }}
               </div>
+              {{ if floor.node_2 }}
               <div class="detail-node">
                 <div class="detail-bar">
                   <div class="detail-node-title">
@@ -494,21 +505,16 @@
                 </div>
                 {{ /if }}
               </div>
+              {{ /if }}
               {{ if floor.node_3 }}
               <div class="detail-node detail-node3">
                 <div class="detail-bar detail-bar-node3">
                   <div class="detail-node-title">
                     <img class="node3-crown" src="{{ pluResPath }}html/challenge/images/node3_crown.png" />
-                    节点3
-                    {{ if floor.node_3.boss_defeated }}
-                      <span class="detail-boss-defeated-text">已击败首领</span>
-                    {{ else }}
-                      <span class="detail-boss-not-defeated-text">未击败首领</span>
-                    {{ /if }}
-                    <p>{{ floor.node_3.challengeTime }}</p>
+                    节点3 <span>{{ floor.node_3.challengeTime }}</span>
                   </div>
                   <div class="detail-node-score">
-                      <p>积分： <span>{{ floor.node_3.score }}</span></p>
+                    <p>积分： <span>{{ floor.node_3.score }}</span></p>
                   </div>
                 </div>
                 <div class="detail-avatars">

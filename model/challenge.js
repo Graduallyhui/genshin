@@ -9,6 +9,13 @@ export default class srChallenge extends base {
     super(e)
     this.e.isSr = true
     this.model = 'roleIndex'
+
+    this.Button = segment.button([
+      { text: '#ck帮助', callback: '#Cookie帮助' }
+    ],[
+      { text: '#扫码登陆', callback: '#扫码登陆' },
+      { text: '#刷新ck', callback: '#刷新ck' }
+    ])
   }
 
   static async getIndex (e) {
@@ -225,12 +232,14 @@ export default class srChallenge extends base {
               challengeTime: this.timeFormat(floor.node_1.challenge_time, 'YYYY.MM.DD HH:mm')
             }) // 快速通关就没有 challenge_time 这个属性
           },
-          node_2: {
-            ...floor.node_2,
-            ...(floor.node_2.challenge_time && {
-              challengeTime: this.timeFormat(floor.node_2.challenge_time, 'YYYY.MM.DD HH:mm')
-            })
-          },
+          ...(floor.node_2 && {
+            node_2: {
+              ...floor.node_2,
+              ...(floor.node_2.challenge_time && {
+                challengeTime: this.timeFormat(floor.node_2.challenge_time, 'YYYY.MM.DD HH:mm')
+              })
+            }
+          }),
           ...(floor.node_3 && {
             node_3: {
               ...floor.node_3,
@@ -264,7 +273,10 @@ export default class srChallenge extends base {
     if ([0, 1].includes(challengeType)) {
       data.all_floor_detail = _.map(data.all_floor_detail, (floor) => {
         if (floor.node_1.score != null) {
-          let totalScore = parseInt(floor.node_1.score) + parseInt(floor.node_2.score)
+          let totalScore = parseInt(floor.node_1.score)
+          if (floor.node_2 && floor.node_2.score != null) {
+            totalScore += parseInt(floor.node_2.score)
+          }
           if (floor.node_3 && floor.is_tierce) {
             totalScore += parseInt(floor.node_3.score)
           }
@@ -342,15 +354,9 @@ export default class srChallenge extends base {
   }
 
   async userUid (e) {
-    let user = e.user_id
-    let ats = e.message.filter(m => m.type === 'at')
-    if (ats.length > 0 && !e.atBot) {
-      user = ats[0].qq
-      e.user_id = user
-    }
     let uid = e.msg.match(/\d+/)?.[0] || await MysInfo.getUid(e, false)
     if (!uid) {
-      await e.reply('找不到uid，请：#刷新ck 或者：#扫码登录', true)
+      await e.reply(['找不到uid，请：#刷新ck 或者：#扫码登录', this.Button])
       return false
     }
 
@@ -362,12 +368,7 @@ export default class srChallenge extends base {
     let ck = await MysInfo.checkUidBing(uid, game)
     ck = ck.ck
     if (!ck) {
-      await e.reply([`uid:${uid}当前尚未绑定Cookie`, segment.button([
-        { text: '#ck帮助', callback: '#Cookie帮助' }
-      ],[
-        { text: '#扫码登陆', callback: '#扫码登陆' },
-        { text: '#刷新ck', callback: '#刷新ck' }
-      ])])
+      await e.reply([`uid:${uid}当前尚未绑定Cookie`, this.Button])
       return false
     }
 

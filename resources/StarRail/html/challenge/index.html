@@ -99,10 +99,12 @@
               <div class="detail-result">
                 <div class="detail-star-small">
                   {{ if floor.is_tierce }}
-                    <% for (var i = 0; i < 3; i++){ %>
+                    <% for (var i = 0; i < (floor.star_num - floor.extra_star_num); i++){ %>
                       <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
                     <% } %>
-                    <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/abyss_star.f89de036.png" />
+                    {{ if floor.extra_star_num == 1 }}
+                      <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/abyss_star.f89de036.png" />
+                    {{ /if }}
                   {{ else }}
                     <% for (var i = 0; i < floor.star_num; i++){ %>
                       <img class="rogue-star-small" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
@@ -115,9 +117,18 @@
               </div>
             {{ else }}
               <div class="detail-star">
-                <% for (var i = 0; i < floor.star_num; i++){ %>
-                  <img class="rogue-star" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
-                <% } %>
+                {{ if floor.is_tierce }}
+                  <% for (var i = 0; i < (floor.star_num - floor.extra_star_num); i++){ %>
+                    <img class="rogue-star" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
+                  <% } %>
+                  {{ if floor.extra_star_num == 1 }}
+                    <img class="rogue-star" src="{{ pluResPath }}html/challenge/images/abyss_star.f89de036.png" />
+                  {{ /if }}
+                {{ else }}
+                  <% for (var i = 0; i < floor.star_num; i++){ %>
+                    <img class="rogue-star" src="{{ pluResPath }}html/challenge/images/rogue-star.png" />
+                  <% } %>
+                {{ /if }}
               </div>
             {{ /if }}
           </div>
@@ -132,7 +143,7 @@
                     {{ else }}
                       <span class="detail-boss-not-defeated-text">未击败首领</span>
                     {{ /if }}
-                  <p>{{ floor.node_1.challengeTime }}</p>
+                    <p>{{ floor.node_1.challengeTime }}</p>
                   {{ else }}
                     节点1 <span>{{ floor.node_1.challengeTime }}</span>
                   {{ /if }}
@@ -170,6 +181,7 @@
                 {{ /if }}
               </div>
             </div>
+            {{ if floor.node_2 }}
             <div class="detail-node">
               <div class="detail-bar">
                 <div class="detail-node-title">
@@ -180,7 +192,7 @@
                     {{ else }}
                       <span class="detail-boss-not-defeated-text">未击败首领</span>
                     {{ /if }}
-                  <p>{{ floor.node_2.challengeTime }}</p>
+                    <p>{{ floor.node_2.challengeTime }}</p>
                   {{ else }}
                     节点2 <span>{{ floor.node_2.challengeTime }}</span>
                   {{ /if }}
@@ -218,18 +230,23 @@
                 {{ /if }}
               </div>
             </div>
+            {{ /if }}
             {{ if floor.node_3 }}
             <div class="detail-node detail-node3">
               <div class="detail-bar detail-bar-node3">
                 <div class="detail-node-title">
                   <img class="node3-crown" src="{{ pluResPath }}html/challenge/images/node3_crown.png" />
-                  节点3
-                  {{ if floor.node_3.boss_defeated }}
-                    <span class="detail-boss-defeated-text">已击败首领</span>
+                  {{ if 'boss_defeated' in floor.node_3 }}
+                    节点3
+                    {{ if floor.node_3.boss_defeated }}
+                      <span class="detail-boss-defeated-text">已击败首领</span>
+                    {{ else }}
+                      <span class="detail-boss-not-defeated-text">未击败首领</span>
+                    {{ /if }}
+                    <p>{{ floor.node_3.challengeTime }}</p>
                   {{ else }}
-                    <span class="detail-boss-not-defeated-text">未击败首领</span>
+                    节点3 <span>{{ floor.node_3.challengeTime }}</span>
                   {{ /if }}
-                  <p>{{ floor.node_3.challengeTime }}</p>
                 </div>
                 <div class="detail-node-score">
                   {{ if 'score' in floor.node_3 }}
