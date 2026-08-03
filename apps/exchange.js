@@ -2,7 +2,6 @@ import plugin from '../../../lib/plugins/plugin.js'
 import common from '../../../lib/common/common.js'
 import fetch from 'node-fetch'
 import Cfg from '../model/Cfg.js'
-import MysInfo from '../model/mys/mysInfo.js'
 import MysApi from '../model/mys/mysApi.js'
 
 export class exchange extends plugin {
@@ -19,13 +18,6 @@ export class exchange extends plugin {
         }
       ]
     })
-
-    this.button = segment.button([
-      { text: '#ck帮助', callback: '#Cookie帮助' }
-    ],[
-      { text: '#扫码登录', callback: '#扫码登录' },
-      { text: '#刷新ck', callback: '#刷新ck' }
-    ])
   }
 
   async getCode() {
@@ -195,7 +187,7 @@ export class exchange extends plugin {
   }
 
   async getHoyoCode() {
-    let url; let gametype; let name; let game_id
+    let url, gametype, name, game_id
     if (this.e.game == 'gs') {
       url = 'https://genshin.hoyoverse.com/zh-tw/gift'
       gametype = '#'
@@ -216,11 +208,12 @@ export class exchange extends plugin {
     let mysApi = new MysApi('', '', { game: 'bbs' })
     let res = await mysApi.getData('material', { game_id })
     res = res?.data?.modules[0]?.exchange_group?.bonuses
-    if (!res) return this.e.reply(`暂无《${name}》国际服前瞻直播兑换码`)
+    if (!res || res.length == 0) return this.e.reply(`暂无《${name}》国际服前瞻直播兑换码`)
 
-    let msgData = []; let button = []
+    let msgData = [], button = []
     msgData.push(`《${name}》国际服前瞻直播兑换码：`)
     for (let i = 0; i < res.length; i++) {
+      if (!res[i].exchange_code) break
       msgData.push(res[i].exchange_code)
       button.push([{ text: `${gametype}兑换码使用${res[i].exchange_code}`, callback: `${gametype}兑换码使用${res[i].exchange_code}` }])
     }
