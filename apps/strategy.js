@@ -61,10 +61,12 @@ export class strategy extends plugin {
       // 来源：坤易
       [22148],
       // 来源：婧枫赛赛
-      [1812949]
+      [1812949],
+	  //来源:Asgater 
+	  [613]
     ]
 
-    this.source = ['西风驿站', '原神观测枢', '派蒙喵喵屋', 'OH是姜姜呀', '曉K', '坤易', '婧枫赛赛']
+    this.source = ['西风驿站', '原神观测枢', '派蒙喵喵屋', 'OH是姜姜呀', '曉K', '坤易', '婧枫赛赛','Asgater']
 
     this.oss = '?x-oss-process=image//resize,s_1200/quality,q_90/auto-orient,0/interlace,1/format,jpg'
   }
@@ -75,7 +77,7 @@ export class strategy extends plugin {
       fs.mkdirSync(this.path)
     }
     /** 初始化子目录 */
-    for (let subId of [1, 2, 3, 4, 5, 6, 7]) {
+    for (let subId of [1, 2, 3, 4, 5, 6, 7,8]) {
       let path = this.path + '/' + subId
       if (!fs.existsSync(path)) {
         fs.mkdirSync(path)
