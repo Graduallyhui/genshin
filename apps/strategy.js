@@ -27,7 +27,7 @@ export class strategy extends plugin {
       priority: 50,
       rule: [
         {
-          reg: '^#?(更新)?\\S+攻略([1-7])?$',
+          reg: '^#?(更新)?\\S+攻略([1-8])?$',
           fnc: 'strategy'
         },
         {
