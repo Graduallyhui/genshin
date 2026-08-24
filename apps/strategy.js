@@ -27,7 +27,7 @@ export class strategy extends plugin {
       priority: 50,
       rule: [
         {
-          reg: '^#?(更新)?\\S+攻略([1-7])?$',
+          reg: '^#?(更新)?\\S+攻略([1-8])?$',
           fnc: 'strategy'
         },
         {
@@ -35,7 +35,7 @@ export class strategy extends plugin {
           fnc: 'strategy_help'
         },
         {
-          reg: '^#?设置默认攻略([1-7])?$',
+          reg: '^#?设置默认攻略([1-8])?$',
           fnc: 'strategy_setting'
         }
       ]
@@ -77,7 +77,7 @@ export class strategy extends plugin {
       fs.mkdirSync(this.path)
     }
     /** 初始化子目录 */
-    for (let subId of [1, 2, 3, 4, 5, 6, 7,8]) {
+    for (let subId of [1, 2, 3, 4, 5, 6, 7, 8]) {
       let path = this.path + '/' + subId
       if (!fs.existsSync(path)) {
         fs.mkdirSync(path)
@@ -116,7 +116,7 @@ export class strategy extends plugin {
 
     this.sfPath = `${this.path}/${group}/${role.name}.jpg`
     let button = []
-    for (const i of [1, 2, 3, 4, 5, 6, 7])
+    for (const i of [1, 2, 3, 4, 5, 6, 7, 8])
       button.push({ text: String(i), callback: `#${role.name}攻略${i}` })
     button = segment.button(button)
 
@@ -137,7 +137,7 @@ export class strategy extends plugin {
 
   /** #设置默认攻略1 */
   async strategy_setting () {
-    let match = /^#?设置默认攻略([1-7])?$/.exec(this.e.msg)
+    let match = /^#?设置默认攻略([1-8])?$/.exec(this.e.msg)
     let set = './plugins/genshin/config/mys.set.yaml'
     let config = fs.readFileSync(set, 'utf8')
     let num = Number(match[1])
@@ -145,7 +145,7 @@ export class strategy extends plugin {
 		await this.e.reply('默认攻略设置方式为: \n#设置默认攻略[1234567] \n 请增加数字1-7其中一个')
 		return
     }
-    config = config.replace(/defaultSource: [1-7]/g, 'defaultSource: ' + num)
+    config = config.replace(/defaultSource: [1-8]/g, 'defaultSource: ' + num)
     fs.writeFileSync(set, config, 'utf8')
 
     await this.e.reply('默认攻略已设置为: ' + match[1])
