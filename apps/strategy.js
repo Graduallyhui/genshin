@@ -35,7 +35,7 @@ export class strategy extends plugin {
           fnc: 'strategy_help'
         },
         {
-          reg: '^#?设置默认攻略([1-7])?$',
+          reg: '^#?设置默认攻略([1-8])?$',
           fnc: 'strategy_setting'
         }
       ]
@@ -66,7 +66,7 @@ export class strategy extends plugin {
 	  [613]
     ]
 
-    this.source = ['西风驿站', '原神观测枢', '派蒙喵喵屋', 'OH是姜姜呀', '曉K', '坤易', '婧枫赛赛','Asgater']
+    this.source = ['西风驿站', '原神观测枢', '派蒙喵喵屋', 'OH是姜姜呀', '曉K', '坤易', '婧枫赛赛', 'Asgater']
 
     this.oss = '?x-oss-process=image//resize,s_1200/quality,q_90/auto-orient,0/interlace,1/format,jpg'
   }
@@ -100,7 +100,7 @@ export class strategy extends plugin {
 
     /** 主角特殊处理 */
     if (['10000005', '10000007', '20000000'].includes(String(role.roleId))) {
-      let travelers = ['风主', '岩主', '雷主', '草主', '水主','冰主']
+      let travelers = ['风主', '岩主', '雷主', '草主', '水主', '冰主']
       if (!travelers.includes(role.alias)) {
         let msg = '请选择：'
         for (let sub of travelers) {
