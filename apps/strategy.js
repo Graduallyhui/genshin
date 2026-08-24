@@ -77,7 +77,7 @@ export class strategy extends plugin {
       fs.mkdirSync(this.path)
     }
     /** 初始化子目录 */
-    for (let subId of [1, 2, 3, 4, 5, 6, 7,8]) {
+    for (let subId of [1, 2, 3, 4, 5, 6, 7, 8]) {
       let path = this.path + '/' + subId
       if (!fs.existsSync(path)) {
         fs.mkdirSync(path)
@@ -87,7 +87,7 @@ export class strategy extends plugin {
 
   /** #心海攻略 */
   async strategy () {
-    let match = /^#?(更新)?(\S+)攻略([1-7])?$/.exec(this.e.msg)
+    let match = /^#?(更新)?(\S+)攻略([1-8])?$/.exec(this.e.msg)
 
     // let isUpdate = !!this.e.msg.includes('更新')
     let isUpdate = !!match[1]
@@ -116,7 +116,7 @@ export class strategy extends plugin {
 
     this.sfPath = `${this.path}/${group}/${role.name}.jpg`
     let button = []
-    for (const i of [1, 2, 3, 4, 5, 6, 7])
+    for (const i of [1, 2, 3, 4, 5, 6, 7, 8])
       button.push({ text: String(i), callback: `#${role.name}攻略${i}` })
     button = segment.button(button)
 
@@ -132,20 +132,20 @@ export class strategy extends plugin {
 
   /** #攻略帮助 */
   async strategy_help () {
-    await this.e.reply('攻略帮助:\n#心海攻略[1234567]\n#更新早柚攻略[1234567]\n#设置默认攻略[1234567]\n示例: 心海攻略4\n\n攻略来源:\n1——西风驿站\n2——原神观测枢\n3——派蒙喵喵屋\n4——OH是姜姜呀\n5——曉K\n6——坤易\n7——婧枫赛赛(角色配队一图流)')
+    await this.e.reply('攻略帮助:\n#心海攻略[1234567]\n#更新早柚攻略[1234567]\n#设置默认攻略[1234567]\n示例: 心海攻略4\n\n攻略来源:\n1——西风驿站\n2——原神观测枢\n3——派蒙喵喵屋\n4——OH是姜姜呀\n5——曉K\n6——坤易\n7——婧枫赛赛(角色配队一图流)\n8——Asgater ')
   }
 
   /** #设置默认攻略1 */
   async strategy_setting () {
-    let match = /^#?设置默认攻略([1-7])?$/.exec(this.e.msg)
+    let match = /^#?设置默认攻略([1-8])?$/.exec(this.e.msg)
     let set = './plugins/genshin/config/mys.set.yaml'
     let config = fs.readFileSync(set, 'utf8')
     let num = Number(match[1])
     if(isNaN(num)) {
-		await this.e.reply('默认攻略设置方式为: \n#设置默认攻略[1234567] \n 请增加数字1-7其中一个')
+		await this.e.reply('默认攻略设置方式为: \n#设置默认攻略[1234567] \n 请增加数字1-8其中一个')
 		return
     }
-    config = config.replace(/defaultSource: [1-7]/g, 'defaultSource: ' + num)
+    config = config.replace(/defaultSource: [1-8]/g, 'defaultSource: ' + num)
     fs.writeFileSync(set, config, 'utf8')
 
     await this.e.reply('默认攻略已设置为: ' + match[1])
